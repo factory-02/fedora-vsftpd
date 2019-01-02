@@ -166,7 +166,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
-* Thu Jan 03 2018 Kitsune Solar <kitsune.solar@gmail.com> - 3.0.3-29
+* Thu Jan 03 2019 Kitsune Solar <kitsune.solar@gmail.com> - 3.0.3-29
 - Update from METADATA.
 
 * Wed Jul 25 2018 Ondřej Lysoněk <olysonek@redhat.com> - 3.0.3-28
