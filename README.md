@@ -19,5 +19,5 @@ SPEC-файл для создания RPM-пакета **vsftpd**.
 
 ## Установка
 
-1. Подключить репозиторий **METASTORE**: `dnf copr enable metastore/vsftpd`.
+1. Подключить репозиторий **METASTORE**: `dnf copr enable metastore/fedora-vsftpd`.
 2. Установить пакет: `dnf install vsftpd`.
