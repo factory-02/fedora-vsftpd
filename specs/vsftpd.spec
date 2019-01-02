@@ -2,7 +2,7 @@
 
 Name:                           vsftpd
 Version:                        3.0.3
-Release:                        29%{?dist}
+Release:                        30%{?dist}
 
 Summary:                        Very Secure Ftp Daemon
 Group:                          System Environment/Daemons
@@ -24,6 +24,9 @@ Source10:                       vsftpd-generator
 # METASTORE - [
 # Signature
 Source900:                      https://security.appspot.com/downloads/%{name}-%{version}.tar.gz.asc
+# SSL generator
+Source920:                      vsftpd-ssl-pass-dialog
+Source921:                      vsftpd-ssl-gencerts
 # ] - METASTORE
 
 BuildRequires:                  pam-devel
@@ -34,6 +37,10 @@ BuildRequires:                  git
 BuildRequires:                  gcc
 
 Requires:                       logrotate
+
+# METASTORE - [
+Requires:                       sscg >= 2.2.0
+# ] - METASTORE
 
 Patch1:                         0001-Don-t-use-the-provided-script-to-locate-libraries.patch
 Patch2:                         0002-Enable-build-with-SSL.patch
@@ -138,6 +145,18 @@ install -m 755 %{SOURCE10} $RPM_BUILD_ROOT%{_generatorsdir}
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 
+# METASTORE - [
+mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
+
+# Install vsftpd-ssl-pass-dialog.
+install -m 755 %{SOURCE920} \
+    $RPM_BUILD_ROOT%{_libexecdir}/vsftpd-ssl-pass-dialog
+
+# Install vsftpd-ssl-gencerts.
+install -m 755 %{SOURCE921} \
+    $RPM_BUILD_ROOT%{_libexecdir}/vsftpd-ssl-gencerts
+# ] - METASTORE
+
 %post
 %systemd_post vsftpd.service
 
@@ -165,7 +184,17 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_mandir}/man8/vsftpd.*
 %{_var}/ftp
 
+# METASTORE - [
+# SSL generator.
+%{_libexecdir}/vsftpd-ssl-pass-dialog
+%{_libexecdir}/vsftpd-ssl-gencerts
+# ] - METASTORE
+
 %changelog
+* Thu Jan 03 2019 Kitsune Solar <kitsune.solar@gmail.com> - 3.0.3-30
+- Add SSL generator.
+- Update SPEC-file.
+
 * Thu Jan 03 2019 Kitsune Solar <kitsune.solar@gmail.com> - 3.0.3-29
 - Update from METADATA.
 
