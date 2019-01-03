@@ -21,11 +21,12 @@ if test ! -f /etc/pki/tls/certs/vsftpd.localhost.crt -a \
     exit 1
 fi
 
-sscg -q                                                             \
-    --cert-file           /etc/pki/tls/certs/vsftpd.localhost.crt   \
-    --cert-key-file       /etc/pki/tls/private/vsftpd.localhost.key \
-    --ca-file             /etc/pki/tls/certs/vsftpd.localhost.crt   \
-    --lifetime            365                                       \
-    --hostname            $FQDN                                     \
-    --email               root@$FQDN
+sscg -q                                                                     \
+    --cert-file                 /etc/pki/tls/certs/vsftpd.localhost.crt     \
+    --cert-key-file             /etc/pki/tls/private/vsftpd.localhost.key   \
+    --ca-file                   /etc/pki/tls/certs/vsftpd.localhost.crt     \
+    --lifetime                  3650                                        \
+    --key-strength              4096                                        \
+    --hostname                  ${FQDN}                                     \
+    --email                     root@${FQDN}
 
