@@ -2,7 +2,7 @@
 
 Name:                           vsftpd
 Version:                        3.0.3
-Release:                        30%{?dist}
+Release:                        31%{?dist}
 Summary:                        Very Secure Ftp Daemon
 Group:                          System Environment/Daemons
 # OpenSSL link exception
@@ -190,6 +190,9 @@ install -m 755 %{SOURCE921} \
 # ] - METASTORE
 
 %changelog
+* Fri Jan 04 2019 Kitsune Solar <kitsune.solar@gmail.com> - 3.0.3-31
+- Reconfigure SSL generator.
+
 * Thu Jan 03 2019 Kitsune Solar <kitsune.solar@gmail.com> - 3.0.3-30
 - Add SSL generator.
 - Update SPEC-file.
