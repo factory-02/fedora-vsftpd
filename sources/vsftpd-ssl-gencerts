@@ -26,7 +26,7 @@ sscg -q                                                                     \
     --cert-key-file             /etc/pki/tls/private/vsftpd.localhost.key   \
     --ca-file                   /etc/pki/tls/certs/vsftpd.localhost.crt     \
     --lifetime                  3650                                        \
-    --key-strength              4096                                        \
+    --key-strength              2048                                        \
     --hostname                  ${FQDN}                                     \
     --email                     root@${FQDN}
 
