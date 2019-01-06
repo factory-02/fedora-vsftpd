@@ -1,32 +1,34 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-FQDN=`hostname`
+FQDN="$( hostname )"
+PATH="/etc/pki/tls"
+FILE="vsftpd.localhost"
 
-if test -f /etc/pki/tls/certs/vsftpd.localhost.crt -a \
-        -f /etc/pki/tls/private/vsftpd.localhost.key; then
+if test -f ${PATH}/certs/${FILE}.crt -a \
+        -f ${PATH}/private/${FILE}.key; then
     exit 0
 fi
 
-if test -f /etc/pki/tls/certs/vsftpd.localhost.crt -a \
-        ! -f /etc/pki/tls/private/vsftpd.localhost.key; then
+if test -f ${PATH}/certs/${FILE}.crt -a \
+        ! -f ${PATH}/private/${FILE}.key; then
     echo "Missing certificate key!"
     exit 1
 fi
 
-if test ! -f /etc/pki/tls/certs/vsftpd.localhost.crt -a \
-        -f /etc/pki/tls/private/vsftpd.localhost.key; then
+if test ! -f ${PATH}/certs/${FILE}.crt -a \
+        -f ${PATH}/private/${FILE}.key; then
     echo "Missing certificate, but key is present!"
     exit 1
 fi
 
-sscg -q                                                                     \
-    --cert-file                 /etc/pki/tls/certs/vsftpd.localhost.crt     \
-    --cert-key-file             /etc/pki/tls/private/vsftpd.localhost.key   \
-    --ca-file                   /etc/pki/tls/certs/vsftpd.localhost.crt     \
-    --lifetime                  3650                                        \
-    --key-strength              2048                                        \
-    --hostname                  ${FQDN}                                     \
+sscg -q                                                     \
+    --cert-file                 ${PATH}/certs/${FILE}.crt   \
+    --cert-key-file             ${PATH}/private/${FILE}.key \
+    --ca-file                   ${PATH}/certs/${FILE}.crt   \
+    --lifetime                  3650                        \
+    --key-strength              2048                        \
+    --hostname                  ${FQDN}                     \
     --email                     root@${FQDN}
 
